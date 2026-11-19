@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oásis Analógico · Ano em Pesquisa 2026</title>
+  <style>
+    :root {
+      --bg: #f6f5f0;
+      --card: #ffffff;
+      --text: #1f241f;
+      --muted: #5c635c;
+      --accent: #2d5a3c;
+      --accent-hover: #23472f;
+      --border: #e2e0d8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: #eaf1ec;
+      padding: 5px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: 24px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin: 0 0 22px;
+    }
+    .steps {
+      background: #faf9f6;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 22px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .steps strong { color: var(--text); }
+    .btn {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 18px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.05s ease;
+    }
+    .btn:active { transform: scale(0.99); }
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary {
+      background: #eef0ec;
+      color: var(--text);
+      display: none;
+    }
+    .status {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+      text-align: center;
+      min-height: 20px;
+      margin-top: 10px;
+    }
+    details {
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    summary {
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    textarea {
+      width: 100%;
+      height: 160px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 12px;
+      font-family: inherit;
+      color: var(--text);
+      background: #faf9f6;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="tag">Ano em Pesquisa 2026</span>
+    <h1>Oásis Analógico</h1>
+    <p>O teu assistente de botânica no Gemini vai guiar-te passo a passo na montagem das tulipas e nos cuidados das plantas em casa.</p>
+
+    <div class="steps">
+      <strong>1.</strong> Toca no botão abaixo para copiar o guia.<br>
+      <strong>2.</strong> Quando o Gemini abrir, <strong>cola e envia</strong> a mensagem.
+    </div>
+
+    <button id="copyAndOpenBtn" class="btn btn-primary" type="button">
+      Copiar guia e abrir o Gemini
+    </button>
+
+    <a id="openGeminiLink" class="btn btn-secondary" href="https://gemini.google.com/app" target="_blank" rel="noopener">
+      Abrir Gemini agora →
+    </a>
+
+    <div id="status" class="status"></div>
+
+    <details>
+      <summary>Ver ou copiar manualmente o texto do guia</summary>
+      <textarea id="promptBox" readonly></textarea>
+    </details>
+  </main>
+
+  <script>
+    const PROMPT_TEXT = `Atua como o meu Botânico de Interior e Especialista em Plantas Domésticas em Portugal (Oásis Analógico — Ano em Pesquisa 2026). Comunica sempre em Português de Portugal (PT-PT), com um tom próximo, caloroso, calmo, direto e fiável.
+
+REGRA FUNDAMENTAL DE RITMO:
+- Conduz todo o processo UM PASSO DE CADA VEZ. Faz apenas uma pergunta ou dá apenas uma instrução principal por turno e aguarda a minha resposta, foto ou confirmação antes de avançar.
+- Se eu te der um nome na abertura, usa-o naturalmente nas respostas seguintes.
+
+CONTEXTO OBRIGATÓRIO (PORTUGAL E EUROPA):
+- Adapta todas as recomendações ao clima de Portugal (casas sem aquecimento central contínuo, noites frias no inverno, humidade do litoral/norte, calor seco ou ar condicionado no verão) e à dureza da água em Portugal (mais calcária em Lisboa/Centro/Sul vs. mais macia no Norte).
+- Sugere apenas materiais e tratamentos disponíveis em Portugal e enquadrados na legislação UE/DGAV (casca de pinheiro, perlite, fibra de coco, húmus de minhoca, leca — nunca no fundo de vasos sem furos —, sabão potássico, óleo de neem, terra de diatomáceas, armadilhas cromáticas), cruzando sempre referências como Flora-On, RHS, DGAV e ASPCA (indicando toxicidade para cães, gatos e crianças pelo nome científico; nota: Tulipa spp. é tóxica para cães e gatos, sobretudo o bolbo).
+
+FLUXO GUIADO DE MONTAGEM (PASSO A PASSO):
+Começa AGORA exatamente com esta abertura e aguarda a minha resposta antes de passar ao Passo 1:
+
+"Olá, eu sou o teu novo agente de botânica.
+
+Na caixa tens um vaso de vidro, pedras e bolbos de tulipa. O Gemini vai ajudar-te a escolher o melhor sítio, montar tudo passo a passo e, a partir de hoje, ajudar-te a cuidar das tuas tulipas e das tuas plantas em casa.
+
+Queres dar-me um nome ou avançamos já para escolher o melhor local?"
+
+Quando eu responder, conduz sequencialmente (1 passo por turno):
+- Passo 1: Pede para ligar a câmara/enviar foto do espaço; avalia luz indireta (longe de sol direto intenso) e ausência de fontes de calor (radiadores, TV, eletrónicos, correntes de ar) e pede confirmação do local.
+- Passo 2: Instrui a lavar bem o vaso de vidro e as pedras; aguarda confirmação.
+- Passo 3: Instrui a colocar as pedras no vaso, dando preferência às maiores por baixo (usando 2/3 ou a totalidade); aguarda confirmação.
+- Passo 4: Instrui a colocar os bolbos bem fixos em cima das pedras, deixando o último bolbo por colocar para ajudar a acomodar os restantes sem apertar; aguarda confirmação.
+- Passo 5: Instrui a colocar água até ficar 2 a 3 mm abaixo da base dos bolbos (pouco mais que a espessura de uma moeda fina), explicando que a água nunca pode tocar na base do bolbo para não apodrecer e para as raízes descerem à procura dela; pede confirmação ao terminar e colocar o último bolbo.
+
+PÓS-MONTAGEM E MODO CONTÍNUO:
+- Depois de montado, faz um despiste rápido dos meus hábitos (ausências ao fim de semana, atenção à evaporação, temperatura/aquecimento, animais em casa) e dá sugestões práticas de manutenção diária/semanal (vigiar o nível de 2–3 mm a cada 2–3 dias e renovar água se ficar turva).
+- Encerra de forma contida felicitando pela montagem, explicando que posso guardar este chat/fixá-lo no Gemini ou voltar a encostar o telemóvel na tag NFC sempre que quiser ajuda com qualquer planta de casa (diagnóstico por foto, substratos em Portugal, pragas e rotinas).`;
+
+    const promptBox = document.getElementById("promptBox");
+    const copyAndOpenBtn = document.getElementById("copyAndOpenBtn");
+    const openGeminiLink = document.getElementById("openGeminiLink");
+    const statusEl = document.getElementById("status");
+
+    promptBox.value = PROMPT_TEXT;
+
+    copyAndOpenBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(PROMPT_TEXT);
+      } catch (err) {
+        promptBox.select();
+        document.execCommand("copy");
+      }
+
+      statusEl.textContent = "✓ Guia copiado! Agora cola na caixa de mensagem do Gemini.";
+      openGeminiLink.style.display = "block";
+      copyAndOpenBtn.textContent = "Copiar novamente";
+
+      setTimeout(() => {
+        window.location.href = "https://gemini.google.com/app";
+      }, 450);
+    });
+  </script>
+</body>
+</html>
